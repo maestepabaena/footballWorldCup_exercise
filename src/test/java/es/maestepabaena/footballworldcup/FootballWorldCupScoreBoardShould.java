@@ -1,13 +1,14 @@
 package es.maestepabaena.footballworldcup;
 
-import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
- * A sport data company would like to develop a new Live Football World Cup Score Board that shows matches and scores
- * It should support the following operations:
+ * A sport data company would like to develop a new Live Football World Cup Score Board that shows matches and scores It
+ * should support the following operations:
  * 1. startGame -> We receive the game data: Home team, AwayTeam and score data: 0-0
  * 2. finishGame -> Remove match from the scoreBoard
  * 3. updateScore -> Receiving a pair of score (home and away team) update the gameScore
@@ -16,64 +17,67 @@ import static org.junit.Assert.assertTrue;
 
 public class FootballWorldCupScoreBoardShould {
 
-        @Test public void store_matchData_when_startGameIsCalled() {
-                //given
-                FootballWorldCupScoreBoard scoreBoard = new FootballWorldCupScoreBoard();
+  private FootballWorldCupScoreBoard scoreBoard;
 
-                //when
-                scoreBoard.startGame("homeTeam", "awayTeam");
+  @Before
+  public void setUp() {
+    scoreBoard = new FootballWorldCupScoreBoard();
+  }
 
-                //then
-                assertEquals("homeTeam - awayTeam : 0-0", scoreBoard.getScoreBoard().get(0));
-        }
+  @Test
+  public void store_matchData_when_startGameIsCalled() {
 
-        @Test public void store_matchesData_when_twoGamesStart() {
-                //given
-                FootballWorldCupScoreBoard scoreBoard = new FootballWorldCupScoreBoard();
+    // when
+    scoreBoard.startGame("homeTeam", "awayTeam");
 
-                //when
-                scoreBoard.startGame("homeTeam", "awayTeam");
-                scoreBoard.startGame("homeTeam2", "awayTeam2");
+    // then
+    assertEquals("homeTeam - awayTeam : 0-0", scoreBoard.getScoreBoard().get(0));
+  }
 
-                //then
-                assertEquals("homeTeam - awayTeam : 0-0", scoreBoard.getScoreBoard().get(0));
-                assertEquals("homeTeam2 - awayTeam2 : 0-0", scoreBoard.getScoreBoard().get(1));
-        }
+  @Test
+  public void store_matchesData_when_twoGamesStart() {
 
-        @Test public void remove_match_when_finishGameIsCalled() {
-                //given
-                FootballWorldCupScoreBoard scoreBoard = new FootballWorldCupScoreBoard();
+    // when
+    scoreBoard.startGame("homeTeam", "awayTeam");
+    scoreBoard.startGame("homeTeam2", "awayTeam2");
 
-                //when
-                scoreBoard.startGame("homeTeam", "awayTeam");
+    // then
+    assertEquals("homeTeam - awayTeam : 0-0", scoreBoard.getScoreBoard().get(0));
+    assertEquals("homeTeam2 - awayTeam2 : 0-0", scoreBoard.getScoreBoard().get(1));
+  }
 
-                //then
-                assertEquals("homeTeam - awayTeam : 0-0", scoreBoard.getScoreBoard().get(0));
+  @Test
+  public void remove_match_when_finishGameIsCalled() {
 
-                //when
-                scoreBoard.finishGame("homeTeam", "awayTeam");
+    // when
+    scoreBoard.startGame("homeTeam", "awayTeam");
 
-                //then
-                assertTrue(scoreBoard.getScoreBoard().isEmpty());
-        }
+    // then
+    assertEquals("homeTeam - awayTeam : 0-0", scoreBoard.getScoreBoard().get(0));
 
-        @Test public void remove_TwoMatches_when_TwoGamesHasFinished() {
-                //given
-                FootballWorldCupScoreBoard scoreBoard = new FootballWorldCupScoreBoard();
+    // when
+    scoreBoard.finishGame("homeTeam", "awayTeam");
 
-                scoreBoard.startGame("homeTeam", "awayTeam");
-                scoreBoard.startGame("homeTeam2", "awayTeam2");
+    // then
+    assertTrue(scoreBoard.getScoreBoard().isEmpty());
+  }
 
-                //then
-                assertEquals("homeTeam - awayTeam : 0-0", scoreBoard.getScoreBoard().get(0));
-                assertEquals("homeTeam2 - awayTeam2 : 0-0", scoreBoard.getScoreBoard().get(1));
+  @Test
+  public void remove_TwoMatches_when_TwoGamesHasFinished() {
 
-                //when
-                scoreBoard.finishGame("homeTeam", "awayTeam");
-                scoreBoard.finishGame("homeTeam2", "awayTeam2");
+    scoreBoard.startGame("homeTeam", "awayTeam");
+    scoreBoard.startGame("homeTeam2", "awayTeam2");
 
-                //then
-                assertTrue(scoreBoard.getScoreBoard().isEmpty());
-        }
+    // then
+    assertEquals("homeTeam - awayTeam : 0-0", scoreBoard.getScoreBoard().get(0));
+    assertEquals("homeTeam2 - awayTeam2 : 0-0", scoreBoard.getScoreBoard().get(1));
+
+    // when
+    scoreBoard.finishGame("homeTeam", "awayTeam");
+    scoreBoard.finishGame("homeTeam2", "awayTeam2");
+
+    // then
+    assertTrue(scoreBoard.getScoreBoard().isEmpty());
+  }
 
 }
