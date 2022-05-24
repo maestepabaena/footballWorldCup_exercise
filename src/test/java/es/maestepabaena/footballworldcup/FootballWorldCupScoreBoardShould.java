@@ -3,6 +3,7 @@ package es.maestepabaena.footballworldcup;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  *
@@ -28,5 +29,23 @@ public class FootballWorldCupScoreBoardShould {
 
                 //then
                 assertEquals("homeTeam - awayTeam : 0-0",scoreBoard.getScoreBoard().get(0));
+        }
+
+        @Test
+        public void remove_match_when_finishGameIsCalled(){
+                //given
+                FootballWorldCupScoreBoard scoreBoard = new FootballWorldCupScoreBoard();
+
+                //when
+                scoreBoard.startGame("homeTeam","awayTeam");
+
+                //then
+                assertEquals("homeTeam - awayTeam : 0-0",scoreBoard.getScoreBoard().get(0));
+
+                //when
+                scoreBoard.finishGame("homeTeam","awayTeam");
+
+                //then
+                assertTrue(scoreBoard.getScoreBoard().isEmpty());
         }
 }

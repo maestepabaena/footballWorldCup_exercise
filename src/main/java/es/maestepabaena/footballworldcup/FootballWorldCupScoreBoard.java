@@ -14,5 +14,9 @@ public class FootballWorldCupScoreBoard {
         public List<String> getScoreBoard() {
                 return scoreBoard;
         }
+
+        public void finishGame(String homeTeam, String awayTeam) {
+                scoreBoard.remove(0);
+        }
 }
 
