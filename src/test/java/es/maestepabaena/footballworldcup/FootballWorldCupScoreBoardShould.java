@@ -24,9 +24,9 @@ public class FootballWorldCupScoreBoardShould {
                 FootballWorldCupScoreBoard scoreBoard = new FootballWorldCupScoreBoard();
 
                 //when
-                String score= scoreBoard.startGame("homeTeam","awayTeam");
+                scoreBoard.startGame("homeTeam","awayTeam");
 
                 //then
-                assertEquals("0-0",score);
+                assertEquals("homeTeam - awayTeam : 0-0",scoreBoard.getScoreBoard().get(0));
         }
 }
