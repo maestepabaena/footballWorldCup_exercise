@@ -2,8 +2,8 @@ package es.maestepabaena.footballworldcup;
 
 public class FootballWorldCupScoreBoard {
 
-        public void main (String [] args) {
-                System.out.println("hjdgfjdklfj");
+        public String startGame(String homeTeam, String awayTeam) {
+                return "0-0";
         }
-
 }
+

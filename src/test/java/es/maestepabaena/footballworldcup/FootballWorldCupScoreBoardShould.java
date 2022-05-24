@@ -2,6 +2,8 @@ package es.maestepabaena.footballworldcup;
 
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  *
  * A sport data company would like to develop a new Live Football World Cup Score Board that shows matches and scores
@@ -17,7 +19,14 @@ import org.junit.Test;
 public class FootballWorldCupScoreBoardShould {
 
         @Test
-        public void xxx(){
+        public void return_0_0_when_startGameIsCalled(){
+                //given
+                FootballWorldCupScoreBoard scoreBoard = new FootballWorldCupScoreBoard();
 
+                //when
+                String score= scoreBoard.startGame("homeTeam","awayTeam");
+
+                //then
+                assertEquals("0-0",score);
         }
 }
