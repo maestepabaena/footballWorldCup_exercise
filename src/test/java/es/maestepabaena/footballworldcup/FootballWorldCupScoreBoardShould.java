@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 public class FootballWorldCupScoreBoardShould {
 
         @Test
-        public void return_0_0_when_startGameIsCalled(){
+        public void store_matchData_when_startGameIsCalled(){
                 //given
                 FootballWorldCupScoreBoard scoreBoard = new FootballWorldCupScoreBoard();
 
