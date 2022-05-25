@@ -11,7 +11,7 @@ public class FootballWorldCupScoreBoard {
   private List<Game> scoreBoard = new ArrayList<>();
 
   public void startGame(String homeTeam, String awayTeam) {
-    Game game= new Game(homeTeam,awayTeam);
+    Game game = new Game(homeTeam, awayTeam);
     scoreBoard.add(game);
   }
 
@@ -26,7 +26,8 @@ public class FootballWorldCupScoreBoard {
   public Object getSummary() {
     String summary = "";
     for (Game game : scoreBoard) {
-      summary += game + "\n";
+      summary += game.getHomeTeam() + " " + game.getHomeScore() + " - " + game.getAwayTeam() + " " + game.getAwayScore()
+          + "\n";
     }
     return summary;
   }

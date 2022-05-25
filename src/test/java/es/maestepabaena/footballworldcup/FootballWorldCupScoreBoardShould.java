@@ -93,33 +93,33 @@ public class FootballWorldCupScoreBoardShould {
     // then
     assertThat(
         scoreBoard.getSummary(),
-        is("homeTeam - awayTeam : 0-0\nhomeTeam2 - awayTeam2 : 0-0\nhomeTeam3 - awayTeam3 : 0-0\n"));
+        is("homeTeam 0 - awayTeam 0\nhomeTeam2 0 - awayTeam2 0\nhomeTeam3 0 - awayTeam3 0\n"));
 
   }
 
   @Test
   public void return_updateGameInScoreBoard_when_newScoreIsGiven() {
-    //given
-    GameScore givenScore=new GameScore(1,0);
+    // given
+    GameScore givenScore = new GameScore(1, 0);
 
     // when
     scoreBoard.startGame("homeTeam", "awayTeam");
     scoreBoard.updateScore("homeTeam", "awayTeam", givenScore);
 
     // then
-    assertThat(scoreBoard.getSummary(), is("homeTeam - awayTeam : 1-0\n"));
+    assertThat(scoreBoard.getSummary(), is("homeTeam 1 - awayTeam 0\n"));
 
   }
 
   @Test
-  public void return_properSummary_when_aGameIsStartedUpdatedAndFinished(){
+  public void return_properSummary_when_aGameIsStartedUpdatedAndFinished() {
 
-    scoreBoard.startGame("Spain","England");
-    assertThat(scoreBoard.getSummary(),is("Spain - England : 0-0\n"));
-    scoreBoard.updateScore("Spain","England",new GameScore(1,0));
-    assertThat(scoreBoard.getSummary(),is("Spain - England : 1-0\n"));
+    scoreBoard.startGame("Spain", "England");
+    assertThat(scoreBoard.getSummary(), is("Spain 0 - England 0\n"));
+    scoreBoard.updateScore("Spain", "England", new GameScore(1, 0));
+    assertThat(scoreBoard.getSummary(), is("Spain 1 - England 0\n"));
     scoreBoard.finishGame("Spain", "England");
-    assertThat(scoreBoard.getSummary(),is(""));
+    assertThat(scoreBoard.getSummary(), is(""));
   }
 
 }
