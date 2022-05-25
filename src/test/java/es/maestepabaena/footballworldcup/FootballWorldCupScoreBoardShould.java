@@ -8,6 +8,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import es.maestepabaena.footballworldcup.model.GameScore;
+
 /**
  * A sport data company would like to develop a new Live Football World Cup Score Board that shows matches and scores It
  * should support the following operations: 1. startGame -> We receive the game data: Home team, AwayTeam and score
@@ -97,10 +99,12 @@ public class FootballWorldCupScoreBoardShould {
 
   @Test
   public void return_updateGameInScoreBoard_when_newScoreIsGiven() {
+    //given
+    GameScore givenScore=new GameScore(1,0);
 
     // when
     scoreBoard.startGame("homeTeam", "awayTeam");
-    scoreBoard.updateScore("homeTeam", "awayTeam", 1, 0);
+    scoreBoard.updateScore("homeTeam", "awayTeam", givenScore);
 
     // then
     assertThat(scoreBoard.getSummary(), is("homeTeam - awayTeam : 1-0\n"));

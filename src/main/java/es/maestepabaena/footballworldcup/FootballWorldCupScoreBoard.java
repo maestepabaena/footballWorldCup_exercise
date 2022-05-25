@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.maestepabaena.footballworldcup.model.Game;
+import es.maestepabaena.footballworldcup.model.GameScore;
 
 public class FootballWorldCupScoreBoard {
 
@@ -30,12 +31,12 @@ public class FootballWorldCupScoreBoard {
     return summary;
   }
 
-  public void updateScore(String homeTeam, String awayTeam, int homeScore, int awayScore) {
+  public void updateScore(String homeTeam, String awayTeam, GameScore score) {
     for (int i = 0, scoreBoardSize = scoreBoard.size(); i < scoreBoardSize; i++) {
       Game game = scoreBoard.get(i);
       if (game.getHomeTeam().equals(homeTeam) && game.getAwayTeam().equals(awayTeam)) {
-        game.setHomeScore(homeScore);
-        game.setAwayScore(awayScore);
+        game.setHomeScore(score.getHomeScore());
+        game.setAwayScore(score.getAwayScore());
         scoreBoard.set(i, game);
       }
 
