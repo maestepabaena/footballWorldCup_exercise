@@ -111,4 +111,15 @@ public class FootballWorldCupScoreBoardShould {
 
   }
 
+  @Test
+  public void return_properSummary_when_aGameIsStartedUpdatedAndFinished(){
+
+    scoreBoard.startGame("Spain","England");
+    assertThat(scoreBoard.getSummary(),is("Spain - England : 0-0\n"));
+    scoreBoard.updateScore("Spain","England",new GameScore(1,0));
+    assertThat(scoreBoard.getSummary(),is("Spain - England : 1-0\n"));
+    scoreBoard.finishGame("Spain", "England");
+    assertThat(scoreBoard.getSummary(),is(""));
+  }
+
 }
