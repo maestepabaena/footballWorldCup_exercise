@@ -89,9 +89,22 @@ public class FootballWorldCupScoreBoardShould {
     scoreBoard.startGame("homeTeam3", "awayTeam3");
 
     // then
-    assertThat( scoreBoard.getSummary(), is("homeTeam - awayTeam : 0-0\nhomeTeam2 - awayTeam2 : 0-0\nhomeTeam3 - awayTeam3 : 0-0\n"));
+    assertThat(
+        scoreBoard.getSummary(),
+        is("homeTeam - awayTeam : 0-0\nhomeTeam2 - awayTeam2 : 0-0\nhomeTeam3 - awayTeam3 : 0-0\n"));
 
   }
 
+  @Test
+  public void return_updateGameInScoreBoard_when_newScoreIsGiven() {
+
+    // when
+    scoreBoard.startGame("homeTeam", "awayTeam");
+    scoreBoard.updateScore("homeTeam", "awayTeam", "1", "0");
+
+    // then
+    assertThat(scoreBoard.getSummary(), is("homeTeam - awayTeam : 1-0\n"));
+
+  }
 
 }
