@@ -18,5 +18,13 @@ public class FootballWorldCupScoreBoard {
         public void finishGame(String homeTeam, String awayTeam) {
                 scoreBoard.remove(0);
         }
+
+        public Object getSummary() {
+                String summary="";
+                for (String game :scoreBoard) {
+                        summary+=game+"\n";
+                }
+                return  summary;
+        }
 }
 

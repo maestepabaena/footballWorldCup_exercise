@@ -1,6 +1,8 @@
 package es.maestepabaena.footballworldcup;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -8,13 +10,11 @@ import org.junit.Test;
 
 /**
  * A sport data company would like to develop a new Live Football World Cup Score Board that shows matches and scores It
- * should support the following operations:
- * 1. startGame -> We receive the game data: Home team, AwayTeam and score data: 0-0
- * 2. finishGame -> Remove match from the scoreBoard
- * 3. updateScore -> Receiving a pair of score (home and away team) update the gameScore
- * 4. getSummary -> Summary of games by total score ordered by the most recently added to the system
+ * should support the following operations: 1. startGame -> We receive the game data: Home team, AwayTeam and score
+ * data: 0-0 2. finishGame -> Remove match from the scoreBoard 3. updateScore -> Receiving a pair of score (home and
+ * away team) update the gameScore 4. getSummary -> Summary of games by total score ordered by the most recently added
+ * to the system
  **/
-
 public class FootballWorldCupScoreBoardShould {
 
   private FootballWorldCupScoreBoard scoreBoard;
@@ -79,5 +79,19 @@ public class FootballWorldCupScoreBoardShould {
     // then
     assertTrue(scoreBoard.getScoreBoard().isEmpty());
   }
+
+  @Test
+  public void return_summaryData_when_severalGamesStart() {
+
+    // when
+    scoreBoard.startGame("homeTeam", "awayTeam");
+    scoreBoard.startGame("homeTeam2", "awayTeam2");
+    scoreBoard.startGame("homeTeam3", "awayTeam3");
+
+    // then
+    assertThat( scoreBoard.getSummary(), is("homeTeam - awayTeam : 0-0\nhomeTeam2 - awayTeam2 : 0-0\nhomeTeam3 - awayTeam3 : 0-0\n"));
+
+  }
+
 
 }
