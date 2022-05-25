@@ -3,15 +3,18 @@ package es.maestepabaena.footballworldcup;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.maestepabaena.footballworldcup.model.Game;
+
 public class FootballWorldCupScoreBoard {
 
-  private List<String> scoreBoard = new ArrayList<>();
+  private List<Game> scoreBoard = new ArrayList<>();
 
   public void startGame(String homeTeam, String awayTeam) {
-    scoreBoard.add(homeTeam + " - " + awayTeam + " : " + "0-0");
+    Game game= new Game(homeTeam,awayTeam);
+    scoreBoard.add(game);
   }
 
-  public List<String> getScoreBoard() {
+  public List<Game> getScoreBoard() {
     return scoreBoard;
   }
 
@@ -21,18 +24,19 @@ public class FootballWorldCupScoreBoard {
 
   public Object getSummary() {
     String summary = "";
-    for (String game : scoreBoard) {
+    for (Game game : scoreBoard) {
       summary += game + "\n";
     }
     return summary;
   }
 
-  public void updateScore(String homeTeam, String awayTeam, String homeScore, String awayScore) {
+  public void updateScore(String homeTeam, String awayTeam, int homeScore, int awayScore) {
     for (int i = 0, scoreBoardSize = scoreBoard.size(); i < scoreBoardSize; i++) {
-      String game = scoreBoard.get(i);
-      if (game.contains(homeTeam + " - " + awayTeam)) {
-        String updateGame = homeTeam + " - " + awayTeam + " : " + homeScore + "-" + awayScore;
-        scoreBoard.set(i, updateGame);
+      Game game = scoreBoard.get(i);
+      if (game.getHomeTeam().equals(homeTeam) && game.getAwayTeam().equals(awayTeam)) {
+        game.setHomeScore(homeScore);
+        game.setAwayScore(awayScore);
+        scoreBoard.set(i, game);
       }
 
     }

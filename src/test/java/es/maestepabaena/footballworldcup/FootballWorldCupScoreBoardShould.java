@@ -31,7 +31,7 @@ public class FootballWorldCupScoreBoardShould {
     scoreBoard.startGame("homeTeam", "awayTeam");
 
     // then
-    assertEquals("homeTeam - awayTeam : 0-0", scoreBoard.getScoreBoard().get(0));
+    assertEquals("homeTeam - awayTeam : 0-0", scoreBoard.getScoreBoard().get(0).toString());
   }
 
   @Test
@@ -42,8 +42,8 @@ public class FootballWorldCupScoreBoardShould {
     scoreBoard.startGame("homeTeam2", "awayTeam2");
 
     // then
-    assertEquals("homeTeam - awayTeam : 0-0", scoreBoard.getScoreBoard().get(0));
-    assertEquals("homeTeam2 - awayTeam2 : 0-0", scoreBoard.getScoreBoard().get(1));
+    assertEquals("homeTeam - awayTeam : 0-0", scoreBoard.getScoreBoard().get(0).toString());
+    assertEquals("homeTeam2 - awayTeam2 : 0-0", scoreBoard.getScoreBoard().get(1).toString());
   }
 
   @Test
@@ -53,7 +53,7 @@ public class FootballWorldCupScoreBoardShould {
     scoreBoard.startGame("homeTeam", "awayTeam");
 
     // then
-    assertEquals("homeTeam - awayTeam : 0-0", scoreBoard.getScoreBoard().get(0));
+    assertEquals("homeTeam - awayTeam : 0-0", scoreBoard.getScoreBoard().get(0).toString());
 
     // when
     scoreBoard.finishGame("homeTeam", "awayTeam");
@@ -69,8 +69,8 @@ public class FootballWorldCupScoreBoardShould {
     scoreBoard.startGame("homeTeam2", "awayTeam2");
 
     // then
-    assertEquals("homeTeam - awayTeam : 0-0", scoreBoard.getScoreBoard().get(0));
-    assertEquals("homeTeam2 - awayTeam2 : 0-0", scoreBoard.getScoreBoard().get(1));
+    assertEquals("homeTeam - awayTeam : 0-0", scoreBoard.getScoreBoard().get(0).toString());
+    assertEquals("homeTeam2 - awayTeam2 : 0-0", scoreBoard.getScoreBoard().get(1).toString());
 
     // when
     scoreBoard.finishGame("homeTeam", "awayTeam");
@@ -100,7 +100,7 @@ public class FootballWorldCupScoreBoardShould {
 
     // when
     scoreBoard.startGame("homeTeam", "awayTeam");
-    scoreBoard.updateScore("homeTeam", "awayTeam", "1", "0");
+    scoreBoard.updateScore("homeTeam", "awayTeam", 1, 0);
 
     // then
     assertThat(scoreBoard.getSummary(), is("homeTeam - awayTeam : 1-0\n"));
