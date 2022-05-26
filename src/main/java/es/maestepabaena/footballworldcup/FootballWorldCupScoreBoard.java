@@ -23,11 +23,24 @@ public class FootballWorldCupScoreBoard {
     return scoreBoard;
   }
 
-  public void finishGame(String homeTeam, String awayTeam) {
-
+  public void updateScore(String homeTeam, String awayTeam, GameScore score) {
     for (int i = 0, scoreBoardSize = scoreBoard.size(); i < scoreBoardSize; i++) {
       Game game = scoreBoard.get(i);
-      if (game.getHomeTeam().equals(homeTeam) && game.getAwayTeam().equals(awayTeam)) {
+      if (isSameGame(homeTeam, awayTeam, game)) {
+        setNewScoreInBoard(score, i, game);
+        return;
+      }
+
+    }
+    throw new IllegalArgumentException("Match was not found in the board");
+  }
+
+
+
+  public void finishGame(String homeTeam, String awayTeam) {
+    for (int i = 0, scoreBoardSize = scoreBoard.size(); i < scoreBoardSize; i++) {
+      Game game = scoreBoard.get(i);
+      if (isSameGame(homeTeam, awayTeam, game)) {
         scoreBoard.remove(i);
         return;
       }
@@ -46,19 +59,15 @@ public class FootballWorldCupScoreBoard {
     }
     return summary;
   }
-  
 
-  public void updateScore(String homeTeam, String awayTeam, GameScore score) {
-    for (int i = 0, scoreBoardSize = scoreBoard.size(); i < scoreBoardSize; i++) {
-      Game game = scoreBoard.get(i);
-      if (game.getHomeTeam().equals(homeTeam) && game.getAwayTeam().equals(awayTeam)) {
-        game.setHomeScore(score.getHomeScore());
-        game.setAwayScore(score.getAwayScore());
-        scoreBoard.set(i, game);
-        return;
-      }
+  private void setNewScoreInBoard(GameScore score, int i, Game game) {
+    game.setHomeScore(score.getHomeScore());
+    game.setAwayScore(score.getAwayScore());
+    scoreBoard.set(i, game);
+  }
 
-    }
-    throw new IllegalArgumentException("Match was not found in the board");
+
+  private boolean isSameGame(String homeTeam, String awayTeam, Game game) {
+    return game.getHomeTeam().equals(homeTeam) && game.getAwayTeam().equals(awayTeam);
   }
 }
