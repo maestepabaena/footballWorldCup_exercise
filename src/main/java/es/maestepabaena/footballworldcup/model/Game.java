@@ -44,4 +44,8 @@ public class Game {
   public int getToTalScore() {
     return score.homeScore + score.awayScore;
   }
+  public String getSummaryGame() {
+    return homeTeam + " " + score.homeScore + " - " + awayTeam + " " + score.awayScore
+        + "\n";
+  }
 }

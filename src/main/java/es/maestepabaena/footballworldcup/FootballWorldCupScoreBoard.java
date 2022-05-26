@@ -37,21 +37,15 @@ public class FootballWorldCupScoreBoard {
   public Object getSummary() {
     String summary = "";
     Queue<Game> lifoQueue = Collections.asLifoQueue(new ArrayDeque<>());
-    for (Game game: scoreBoard) {
-      lifoQueue.add(game);
-    }
+    scoreBoard.forEach(lifoQueue::add);
     while (!lifoQueue.isEmpty()) {
       Game maxGameScore = lifoQueue.stream().max(Comparator.comparing(Game::getToTalScore)).orElse(null);
-      summary = summary + summaryGameFormatter(maxGameScore);
+      summary += maxGameScore.getSummaryGame();
       lifoQueue.remove(maxGameScore);
     }
     return summary;
   }
-
-  private String summaryGameFormatter(Game game) {
-    return game.getHomeTeam() + " " + game.getHomeScore() + " - " + game.getAwayTeam() + " " + game.getAwayScore()
-        + "\n";
-  }
+  
 
   public void updateScore(String homeTeam, String awayTeam, GameScore score) {
     for (int i = 0, scoreBoardSize = scoreBoard.size(); i < scoreBoardSize; i++) {
