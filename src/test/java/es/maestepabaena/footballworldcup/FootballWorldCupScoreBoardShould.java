@@ -139,6 +139,19 @@ public class FootballWorldCupScoreBoardShould {
   }
 
   @Test
+  public void returnAnException_when_updateAGameAndBoardIsEmpty() {
+    //given
+
+    //when
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      scoreBoard.updateScore("Espanya", "England",new GameScore(1,1));
+    });
+
+    //then
+    assertTrue(exception.getMessage().contains("Match was not found in the board"));
+  }
+
+  @Test
   public void returnAnException_when_finishAGameAndIsNotFound() {
     //given
     scoreBoard.startGame("Spain", "England");
@@ -152,6 +165,20 @@ public class FootballWorldCupScoreBoardShould {
     //then
     assertTrue(exception.getMessage().contains("Match was not found in the board"));
   }
+
+  @Test
+  public void returnAnException_when_finishAGameAndBoardIsEmpty() {
+    //given
+
+    //when
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      scoreBoard.finishGame("Espanya", "England");
+    });
+
+    //then
+    assertTrue(exception.getMessage().contains("Match was not found in the board"));
+  }
+
 
   @Test
   public void return_orderedSummary_when_severalGamesWereStartedUpdatedAndFinished() {
