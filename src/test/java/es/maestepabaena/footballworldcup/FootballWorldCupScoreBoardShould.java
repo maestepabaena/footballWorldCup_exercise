@@ -29,7 +29,6 @@ public class FootballWorldCupScoreBoardShould {
 
   @Test
   public void store_matchData_when_startGameIsCalled() {
-
     // when
     scoreBoard.startGame("homeTeam", "awayTeam");
 
@@ -39,7 +38,6 @@ public class FootballWorldCupScoreBoardShould {
 
   @Test
   public void store_matchesData_when_twoGamesStart() {
-
     // when
     scoreBoard.startGame("homeTeam", "awayTeam");
     scoreBoard.startGame("homeTeam2", "awayTeam2");
@@ -51,7 +49,6 @@ public class FootballWorldCupScoreBoardShould {
 
   @Test
   public void remove_match_when_finishGameIsCalled() {
-
     // when
     scoreBoard.startGame("homeTeam", "awayTeam");
 
@@ -114,63 +111,70 @@ public class FootballWorldCupScoreBoardShould {
 
   @Test
   public void return_properSummary_when_aGameIsStartedUpdatedAndFinished() {
+    //Testing game lifecycle in board
 
     scoreBoard.startGame("Spain", "England");
     assertThat(scoreBoard.getSummary(), is("Spain 0 - England 0\n"));
+
     scoreBoard.updateScore("Spain", "England", new GameScore(1, 0));
     assertThat(scoreBoard.getSummary(), is("Spain 1 - England 0\n"));
+
     scoreBoard.finishGame("Spain", "England");
     assertThat(scoreBoard.getSummary(), is(""));
   }
 
   @Test
   public void returnAnException_when_updateAGameAndIsNotFound() {
-
+    //given
     scoreBoard.startGame("Spain", "England");
     assertThat(scoreBoard.getSummary(), is("Spain 0 - England 0\n"));
+
+    //when
     Exception exception = assertThrows(IllegalArgumentException.class, () -> {
       scoreBoard.updateScore("Espanya", "England",new GameScore(1,1));
     });
 
-    String expectedMessage= "Match was not found in the board";
-    String actualMessage= exception.getMessage();
-
-    assertTrue(actualMessage.contains(expectedMessage));
+    //then
+    assertTrue(exception.getMessage().contains("Match was not found in the board"));
   }
 
   @Test
   public void returnAnException_when_finishAGameAndIsNotFound() {
-
+    //given
     scoreBoard.startGame("Spain", "England");
     assertThat(scoreBoard.getSummary(), is("Spain 0 - England 0\n"));
+
+    //when
     Exception exception = assertThrows(IllegalArgumentException.class, () -> {
       scoreBoard.finishGame("Espanya", "England");
     });
 
-    String expectedMessage= "Match was not found in the board";
-    String actualMessage= exception.getMessage();
-
-    assertTrue(actualMessage.contains(expectedMessage));
+    //then
+    assertTrue(exception.getMessage().contains("Match was not found in the board"));
   }
-
-
 
   @Test
   public void return_orderedSummary_when_severalGamesWereStartedUpdatedAndFinished() {
+
 
     scoreBoard.startGame("Spain", "England");
     scoreBoard.startGame("Brazil", "Argentina");
     scoreBoard.startGame("Germany", "Russia");
     assertThat(scoreBoard.getSummary(), is("Germany 0 - Russia 0\nBrazil 0 - Argentina 0\nSpain 0 - England 0\n"));
+
     scoreBoard.updateScore("Spain", "England", new GameScore(1, 0));
     scoreBoard.updateScore("Brazil", "Argentina", new GameScore(1, 5));
     assertThat(scoreBoard.getSummary(), is("Brazil 1 - Argentina 5\nSpain 1 - England 0\nGermany 0 - Russia 0\n"));
+
     scoreBoard.finishGame("Spain", "England");
     assertThat(scoreBoard.getSummary(), is("Brazil 1 - Argentina 5\nGermany 0 - Russia 0\n"));
+
     scoreBoard.updateScore("Germany","Russia",new GameScore(3,3));
     assertThat(scoreBoard.getSummary(), is("Germany 3 - Russia 3\nBrazil 1 - Argentina 5\n"));
+
     scoreBoard.updateScore("Brazil","Argentina", new GameScore(4,5));
     assertThat(scoreBoard.getSummary(), is("Brazil 4 - Argentina 5\nGermany 3 - Russia 3\n"));
+
     scoreBoard.finishGame("Germany","Russia");
     assertThat(scoreBoard.getSummary(), is("Brazil 4 - Argentina 5\n"));
   }
