@@ -138,6 +138,8 @@ public class FootballWorldCupScoreBoardShould {
     assertThat(scoreBoard.getSummary(), is("Germany 3 - Russia 3\nBrazil 1 - Argentina 5\n"));
     scoreBoard.updateScore("Brazil","Argentina", new GameScore(4,5));
     assertThat(scoreBoard.getSummary(), is("Brazil 4 - Argentina 5\nGermany 3 - Russia 3\n"));
+    scoreBoard.finishGame("Germany","Russia");
+    assertThat(scoreBoard.getSummary(), is("Brazil 4 - Argentina 5\n"));
   }
 
 }

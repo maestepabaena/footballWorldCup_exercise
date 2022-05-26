@@ -24,7 +24,14 @@ public class FootballWorldCupScoreBoard {
   }
 
   public void finishGame(String homeTeam, String awayTeam) {
-    scoreBoard.remove(0);
+
+    for (int i = 0, scoreBoardSize = scoreBoard.size(); i < scoreBoardSize; i++) {
+      Game game = scoreBoard.get(i);
+      if (game.getHomeTeam().equals(homeTeam) && game.getAwayTeam().equals(awayTeam)) {
+        scoreBoard.remove(i);
+        return;
+      }
+    }
   }
 
   public Object getSummary() {
