@@ -32,6 +32,7 @@ public class FootballWorldCupScoreBoard {
         return;
       }
     }
+    throw new IllegalArgumentException("Match was not found in the board");
   }
 
   public Object getSummary() {
@@ -54,8 +55,10 @@ public class FootballWorldCupScoreBoard {
         game.setHomeScore(score.getHomeScore());
         game.setAwayScore(score.getAwayScore());
         scoreBoard.set(i, game);
+        return;
       }
 
     }
+    throw new IllegalArgumentException("Match was not found in the board");
   }
 }

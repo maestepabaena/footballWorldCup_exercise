@@ -1,8 +1,9 @@
 package es.maestepabaena.footballworldcup;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -123,6 +124,38 @@ public class FootballWorldCupScoreBoardShould {
   }
 
   @Test
+  public void returnAnException_when_updateAGameAndIsNotFound() {
+
+    scoreBoard.startGame("Spain", "England");
+    assertThat(scoreBoard.getSummary(), is("Spain 0 - England 0\n"));
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      scoreBoard.updateScore("Espanya", "England",new GameScore(1,1));
+    });
+
+    String expectedMessage= "Match was not found in the board";
+    String actualMessage= exception.getMessage();
+
+    assertTrue(actualMessage.contains(expectedMessage));
+  }
+
+  @Test
+  public void returnAnException_when_finishAGameAndIsNotFound() {
+
+    scoreBoard.startGame("Spain", "England");
+    assertThat(scoreBoard.getSummary(), is("Spain 0 - England 0\n"));
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      scoreBoard.finishGame("Espanya", "England");
+    });
+
+    String expectedMessage= "Match was not found in the board";
+    String actualMessage= exception.getMessage();
+
+    assertTrue(actualMessage.contains(expectedMessage));
+  }
+
+
+
+  @Test
   public void return_orderedSummary_when_severalGamesWereStartedUpdatedAndFinished() {
 
     scoreBoard.startGame("Spain", "England");
@@ -141,5 +174,7 @@ public class FootballWorldCupScoreBoardShould {
     scoreBoard.finishGame("Germany","Russia");
     assertThat(scoreBoard.getSummary(), is("Brazil 4 - Argentina 5\n"));
   }
+
+
 
 }
