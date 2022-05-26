@@ -40,4 +40,8 @@ public class Game {
   public int getAwayScore() {
     return score.awayScore;
   }
+
+  public int getToTalScore() {
+    return score.homeScore + score.awayScore;
+  }
 }

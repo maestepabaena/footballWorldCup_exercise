@@ -1,7 +1,11 @@
 package es.maestepabaena.footballworldcup;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Queue;
 
 import es.maestepabaena.footballworldcup.model.Game;
 import es.maestepabaena.footballworldcup.model.GameScore;
@@ -25,11 +29,21 @@ public class FootballWorldCupScoreBoard {
 
   public Object getSummary() {
     String summary = "";
-    for (Game game : scoreBoard) {
-      summary += game.getHomeTeam() + " " + game.getHomeScore() + " - " + game.getAwayTeam() + " " + game.getAwayScore()
-          + "\n";
+    Queue<Game> lifoQueue = Collections.asLifoQueue(new ArrayDeque<>());
+    for (Game game: scoreBoard) {
+      lifoQueue.add(game);
+    }
+    while (!lifoQueue.isEmpty()) {
+      Game maxGameScore = lifoQueue.stream().max(Comparator.comparing(Game::getToTalScore)).orElse(null);
+      summary = summary + summaryGameFormatter(maxGameScore);
+      lifoQueue.remove(maxGameScore);
     }
     return summary;
+  }
+
+  private String summaryGameFormatter(Game game) {
+    return game.getHomeTeam() + " " + game.getHomeScore() + " - " + game.getAwayTeam() + " " + game.getAwayScore()
+        + "\n";
   }
 
   public void updateScore(String homeTeam, String awayTeam, GameScore score) {
